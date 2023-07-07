@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=24.8&longitude=121.0&hourly=temperature_2m,relativehumidity_2m')
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=24.8&longitude=121.0&hourly=temperature_2m,relativehumidity_2m&timezone=Asia%2FSingapore')
     .then(response => response.json())
     .then(data => {
       const temperatures = data.hourly.temperature_2m;
