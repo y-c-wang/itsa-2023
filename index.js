@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const times = data.hourly.time;
 
       const result = times.map((time, index) => ({
-        time,
+        time: moment(time).format('MMM Do YYYY, h:mm A'),
         temperature_2m: temperatures[index]
       }));
 
