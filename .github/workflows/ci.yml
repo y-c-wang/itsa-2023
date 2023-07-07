@@ -1,0 +1,17 @@
+name: run CI
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Into repo
+        uses: actions/checkout@v3
+      - name: Check index.html exists
+        run: cat index.html
+      - name: Check index.js exists
+        run: cat index.js
+      - name: Check style.css exists
+        run: cat style.css
