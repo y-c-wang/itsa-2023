@@ -16,12 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       tableBody.innerHTML = '';
 
-      result.forEach(item => {
+      result.forEach((item, index) => {
         const row = document.createElement('tr');
         const timeCell = document.createElement('td');
         const temperatureCell = document.createElement('td');
         const humidityCell = document.createElement('td');
 
+        row.setAttribute("id", `temperature-tr-${index}`);
+        
         timeCell.textContent = item.time;
         temperatureCell.textContent = item.temperature_2m;
         humidityCell.textContent = item.humidity_2m;
