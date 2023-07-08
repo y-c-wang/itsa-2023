@@ -24,28 +24,34 @@ def get_options():
 
 
 def check_loaded():
-    driver = webdriver.Chrome(service=Service(
-        ChromeDriverManager().install()), options=get_options())
-    driver.get("http://localhost:8080")
-    WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.ID, "temperature-tr-0"))
-    )
+    try:
+        driver = webdriver.Chrome(service=Service(
+            ChromeDriverManager().install()), options=get_options())
+        driver.get("http://localhost:8080")
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.ID, "temperature-tr-0"))
+        )
+    except Exception:
+        sys.exit("ERROR: failed to fetch the data from Open-Meteo")
 
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
 
-    tr_list = soup.find_all("tr")
-    for tr in tr_list:
-        th_list = tr.find_all("th")
-        if len(th_list) == 3:
-            continue
+    try:
+        tr_list = soup.find_all("tr")
+        for tr in tr_list:
+            th_list = tr.find_all("th")
+            if len(th_list) == 3:
+                continue
 
-        td_list = tr.find_all("td")
-        assert (len(td_list) == 3)
+            td_list = tr.find_all("td")
+            assert (len(td_list) == 3)
 
-        for td in td_list:
-            assert (td.text != "")
+            for td in td_list:
+                assert (td.text != "")
+    except Exception:
+        sys.exit("ERROR: fetch data in wrong format")
 
     driver.quit()
 
