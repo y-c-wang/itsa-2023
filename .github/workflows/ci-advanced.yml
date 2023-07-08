@@ -1,0 +1,20 @@
+name: run Advanced CI
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Into repo
+        uses: actions/checkout@v3
+      - name: Run http server in background
+        run: python -m http.server 8080 &
+      - name: Install packages
+        run: |
+          sudo pip install selenium
+          sudo pip install beautifulsoup4
+          sudo pip install webdriver_manager
+      - name: Check data are fetched successfully
+        run: python test.py

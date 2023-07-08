@@ -15,3 +15,5 @@ jobs:
         run: cat index.js
       - name: Check style.css exists
         run: cat style.css
+      - name: Check test.py exists
+        run: cat test.py
